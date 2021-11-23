@@ -21,7 +21,6 @@ namespace Day1
             Console.ResetColor();
             StreamReader reader = new StreamReader("../../../input.txt");
             string[] numbers = reader.ReadToEnd().Split("\n");
-            //numbers.ToList().ForEach(x => Console.WriteLine(x));
             for (int i = 0; i < numbers.Length; i++)
             {
                 int loopNumber = int.Parse(numbers[i].Trim());
@@ -30,8 +29,13 @@ namespace Day1
                 {
                     int childNumber = int.Parse(numbers[o].Trim());
                     if(loopNumber + childNumber == targetResult)
-                    {
                         Hit(loopNumber, childNumber);
+
+                    for(int p = i; p < numbers.Length; p++)
+                    {
+                        int childchildNumber = int.Parse(numbers[p]);
+                        if (loopNumber + childNumber + childchildNumber == targetResult)
+                            Hit(loopNumber, childNumber, childchildNumber);
                     }
                 }
                 
@@ -51,6 +55,11 @@ namespace Day1
             Console.WriteLine(result);
             correctResults.Add(result);
         }
+        static void Hit(int numberOne, int numberTwo, int numberThree) {
+            Console.ForegroundColor = ConsoleColor.Green;
+            string result = string.Format("{0} + {1} + {4} = {2} => {0} * {1} * {4} = {3}", numberOne, numberTwo, targetResult, numberOne * numberTwo * numberThree,numberThree);
+            Console.WriteLine(result);
+            correctResults.Add(result);
+        }
     }
-    
 }
